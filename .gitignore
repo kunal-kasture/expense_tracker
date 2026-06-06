@@ -1,0 +1,13 @@
+#Dependency folders
+node_modules/
+**/node_modules/
+
+#secret files
+.env
+**/.env
+
+#Prod builds and logs
+dist/
+build/
+*.log
+.DS_Store
