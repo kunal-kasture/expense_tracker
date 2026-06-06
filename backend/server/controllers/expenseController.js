@@ -25,7 +25,7 @@ export const getExpenses = async (req, res) => {
 
     res
       .status(200)
-      .json({ success: true, count: getExpenses.length, data: expenses });
+      .json({ success: true, count: expenses.length, data: expenses });
   } catch (error) {
     res.status(500).json({ success: false, message: "Server error" });
   }
