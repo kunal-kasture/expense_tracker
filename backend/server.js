@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./server/config/db.js";
 import dns from "dns";
+import expenseRoutes from "./server/routes/expenseRoutes.js";
 
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
@@ -14,6 +15,8 @@ app.use(cors());
 app.use(express.json());
 
 connectDB();
+
+app.use("/api/expenses", expenseRoutes);
 
 app.get("/api/health", (req, res) => {
   res.status(200).json({ status: "UP", message: "Server is running" });
