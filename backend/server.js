@@ -1,13 +1,14 @@
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
-import connectDB from "./server/config/db.js";
 import dns from "dns";
-import expenseRoutes from "./server/routes/expenseRoutes.js";
+import dotenv from "dotenv";
 
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
-
 dotenv.config();
+
+import express from "express";
+import cors from "cors";
+import connectDB from "./server/config/db.js";
+import expenseRoutes from "./server/routes/expenseRoutes.js";
+import authRoutes from "./server/routes/authRoutes.js";
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(express.json());
 connectDB();
 
 app.use("/api/expenses", expenseRoutes);
+app.use("/api/auth", authRoutes);
 
 app.get("/api/health", (req, res) => {
   res.status(200).json({ status: "UP", message: "Server is running" });
