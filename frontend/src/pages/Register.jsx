@@ -1,6 +1,15 @@
 import { useState } from "react";
-import { useAuth } from "../context/AuthContext";
-import { useNavigate, Link } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
+import { useNavigate, Link as RouterLink } from "react-router-dom";
+import {
+  Alert,
+  Box,
+  Button,
+  Container,
+  Paper,
+  TextField,
+  Typography,
+} from "@mui/material";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -33,86 +42,108 @@ const Register = () => {
   };
 
   return (
-    <div
-      style={{
-        maxWidth: "400px",
-        margin: "50px auto",
-        padding: "20px",
-        border: "1px solid #ccc",
-        borderRadius: "5px",
-      }}
-    >
-      <h2>Register</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: "15px" }}>
-          <label style={{ display: "block", marginBottom: "5px" }}>
-            Username:
-          </label>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-            style={{ width: "100%", padding: "8px", boxSizing: "border-box" }}
-          />
-        </div>
-        <div style={{ marginBottom: "15px" }}>
-          <label style={{ display: "block", marginBottom: "5px" }}>
-            Email:
-          </label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            style={{ width: "100%", padding: "8px", boxSizing: "border-box" }}
-          />
-        </div>
-        <div style={{ marginBottom: "15px" }}>
-          <label style={{ display: "block", marginBottom: "5px" }}>
-            Password:
-          </label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            style={{ width: "100%", padding: "8px", boxSizing: "border-box" }}
-          />
-        </div>
-        <div style={{ marginBottom: "15px" }}>
-          <label style={{ display: "block", marginBottom: "5px" }}>
-            Confirm Password:
-          </label>
-          <input
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-            style={{ width: "100%", padding: "8px", boxSizing: "border-box" }}
-          />
-        </div>
-        <button
-          type="submit"
-          disabled={loading}
-          style={{
-            width: "100%",
-            padding: "10px",
-            background: "#28a745",
-            color: "#fff",
-            border: "none",
-            borderRadius: "3px",
-            cursor: "pointer",
-          }}
+    <Container component="main" maxWidth="xs">
+      <Box
+        sx={{
+          marginTop: 6,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Paper
+          elevation={3}
+          sx={{ padding: 4, width: "100%", borderRadius: 2 }}
         >
-          {loading ? "Creating account..." : "Register"}
-        </button>
-      </form>
-      <p style={{ marginTop: "15px", textAlign: "center" }}>
-        Already have an account? <Link to="/login">Login here</Link>
-      </p>
-    </div>
+          <Typography
+            component="h1"
+            variant="h5"
+            align="center"
+            gutterBottom
+            fontWeight="600"
+          >
+            Register
+          </Typography>
+          {error && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              {error}
+            </Alert>
+          )}
+          <Box component="form" onSubmit={handleSubmit} noValidate>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="username"
+              label="Username"
+              name="username"
+              autoFocus
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email"
+              name="email"
+              autoComplete="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="password"
+              label="Password"
+              name="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="confirmPassword"
+              label="Confirm Password"
+              name="confirmPassword"
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="success"
+              disabled={loading}
+              sx={{ mt: 3, mb: 2, py: 1.2, fontWeight: "600" }}
+            >
+              {loading ? "Creating Account..." : "Register"}
+            </Button>
+            <Box sx={{ textAlign: "center", mt: 1 }}>
+              <Typography variant="body2" color="text.secondary">
+                Already have an account?{" "}
+                <Box
+                  component={RouterLink}
+                  to="/login"
+                  sx={{
+                    color: "primary.main",
+                    textDecoration: "none",
+                    fontWeight: "500",
+                  }}
+                >
+                  Login here
+                </Box>
+              </Typography>
+            </Box>
+          </Box>
+        </Paper>
+      </Box>
+    </Container>
   );
 };
 
