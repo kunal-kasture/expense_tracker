@@ -13,7 +13,7 @@ const Register = () => {
   const { register } = useAuth();
   const navigate = useNavigate();
 
-  const hnadleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
@@ -44,7 +44,7 @@ const Register = () => {
     >
       <h2>Register</h2>
       {error && <p style={{ color: "red" }}>{error}</p>}
-      <form onSubmit={hnadleSubmit}>
+      <form onSubmit={handleSubmit}>
         <div style={{ marginBottom: "15px" }}>
           <label style={{ display: "block", marginBottom: "5px" }}>
             Username:
@@ -115,3 +115,5 @@ const Register = () => {
     </div>
   );
 };
+
+export default Register;
